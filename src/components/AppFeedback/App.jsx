@@ -1,9 +1,11 @@
 import { Component } from 'react';
+import Section from '../Section';
+import FeedbackOptions from '../FeedbackOptions';
 import Statistics from '../Statistics';
 
-import styles from './Feedback.module.scss';
+import styles from './App.module.scss';
 
-class Feedback extends Component {
+class App extends Component {
   state = {
     good: 0,
     neutral: 0,
@@ -35,28 +37,27 @@ class Feedback extends Component {
   };
 
   render() {
+    const { good, neutral, bad } = this.state;
     return (
-      <>
-        <h1>Please leave feedback</h1>
-        <div className={styles.wrapper}>
-          <button type="button" value="good" onClick={this.hendelClick}>
-            Good
-          </button>
-          <button type="button" value="neutral" onClick={this.hendelClick}>
-            Neutral
-          </button>
-          <button type="button" value="bad" onClick={this.hendelClick}>
-            Bad
-          </button>
-        </div>
-        <Statistics
-          data={this.state}
-          onTotalFeedback={this.countTotalFeedback}
-          onPositiveFeedbackPercentage={this.countPositiveFeedbackPercentage}
-        />
-      </>
+      <div className={styles.App}>
+        <Section title="Please leave feedback">
+          <FeedbackOptions
+            options={Object.keys(this.state)}
+            onLeaveFeedback={this.hendelClick}
+          />
+        </Section>
+        <Section title="Statistics">
+          <Statistics
+            good={good}
+            neutral={neutral}
+            bad={bad}
+            total={this.countTotalFeedback()}
+            positivePercentage={this.countPositiveFeedbackPercentage()}
+          />
+        </Section>
+      </div>
     );
   }
 }
 
-export default Feedback;
+export default App;

@@ -15,10 +15,3 @@ li {
   list-style-type: none;
   /* Убираем маркеры */
 }
-
-.App {
-  display: flex;
-  flex-direction: column;
-  width: 600px;
-  margin: 40px auto 0;
-}
