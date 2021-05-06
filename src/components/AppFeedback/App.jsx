@@ -2,6 +2,7 @@ import { Component } from 'react';
 import Section from '../Section';
 import FeedbackOptions from '../FeedbackOptions';
 import Statistics from '../Statistics';
+import Notification from '../Notific';
 
 import styles from './App.module.scss';
 
@@ -36,8 +37,14 @@ class App extends Component {
     }));
   };
 
+  hendelState = () => {
+    const arreyState = Object.values(this.state).some(item => item > 0);
+    return arreyState;
+  };
+
   render() {
     const { good, neutral, bad } = this.state;
+
     return (
       <div className={styles.App}>
         <Section title="Please leave feedback">
@@ -46,15 +53,19 @@ class App extends Component {
             onLeaveFeedback={this.hendelClick}
           />
         </Section>
-        <Section title="Statistics">
-          <Statistics
-            good={good}
-            neutral={neutral}
-            bad={bad}
-            total={this.countTotalFeedback()}
-            positivePercentage={this.countPositiveFeedbackPercentage()}
-          />
-        </Section>
+        {this.hendelState() ? (
+          <Section title="Statistics">
+            <Statistics
+              good={good}
+              neutral={neutral}
+              bad={bad}
+              total={this.countTotalFeedback()}
+              positivePercentage={this.countPositiveFeedbackPercentage()}
+            />
+          </Section>
+        ) : (
+          <Notification message="No feedback given"></Notification>
+        )}
       </div>
     );
   }

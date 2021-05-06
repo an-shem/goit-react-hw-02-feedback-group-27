@@ -15,8 +15,11 @@ button {
   text-align: center;
   background-color: #fff;
   cursor: pointer;
-}
 
-button:not(:last-child) {
-  margin-right: 15px;
+  &:not(:last-child) {
+    margin-right: 15px;
+  }
+  &:hover {
+    background-color: #66bdf0;
+  }
 }
